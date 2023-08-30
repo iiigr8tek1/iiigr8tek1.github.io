@@ -1,0 +1,29 @@
+name: ASP.NET Core CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '5.0.x' # Use the appropriate version
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build and test
+        run: dotnet build --configuration Release --no-restore
+        # You can replace 'dotnet build' with 'dotnet test' for testing if needed
